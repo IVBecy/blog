@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--Site Description-->
+  <meta property="og:title" content="My way of making an IP logger" />
+  <meta property="og:description" content="Tricky but neat IP logger in a few hours..." />
+  <meta property="og:type" content="website" />
+  <!--  Browser Icon  -->
+  <link rel="icon" href="../assets/images/favicon.ico">
+   <!--  Jquery link(s)  -->
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!--  React.js libraries  -->
+  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <!-- Font awesome kit  -->
+  <script src="https://kit.fontawesome.com/b82b391bad.js" crossorigin="anonymous"></script>
+  <!--  Bootstrap(s)  -->
+  <link rel="" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <!-- My scripts -->
+  <link rel="stylesheet" href="../assets/blog.css">
+  <script type="text/jsx" src="../assets/blog.js"></script>
+  <title>Patrick -- the bot</title>
+</head>
+<body>
+  <!-- Title -->
+  <div class="modal"></div>
+  <div class="container-fluid" id="intro" style="background-color: #5663F7;"><h1>Patrick -- The Bot</h1><h3>14 May 2022</h3><p>How I made an IP logger under 12 hours</p></div>
+  <!-- Description -->
+  <div class="container" id="desc">
+    <img id="icon-showcase" src="../assets/images/patrick.png" alt="header"><br>
+    <a id="blog-url" href="https://github.com/IVBecy/patrick-the-bot">https://github.com/IVBecy/patrick-the-bot</a>
+  </div>
+  <br>
+  <div class="container">
+    <h2>The idea, and how it got me more excited than some of my more complex projects</h2>
+    <p>
+      I was in the middle of making my own programming language, when I took a long enough break (6 hours)
+      and gamed through the night with a friend. The game in question was CS:GO, but that doesn't matter. <br> We got
+      into a lobby with some guys, who invited us to their discord server. We waited 5 minutes in the lobby until they
+      decided to kick us out for no-reason. As a result of this, we expressed our disapproval of their actions and 
+      the situation got heated... <br>
+      It turned out that one of the guys in the other lobby is a programmer too. So, as it is to be expected
+      we got into a dick measuring contest. When the guy felt like he lost, he sent a dodgy link to an IP logger.
+      Keep in mind that the link had a <code>.php</code> extension so, it was pretty bad.<br>
+      Since, I felt like I won, I just left the discord server.
+    </p>
+  </div>
+  <br>
+  <div class="container">
+    <h2>Starting the project</h2>
+    <p>
+      Even though I felt and knew that I won the argument, I was frustrated that the guy
+      had an IP logger script at hand and I didn't... <br>
+      As I felt that I could do better than he did, I got to making my own IP logger. <br>
+      The concept was easy enough, I just had to find a way to own a domain that isn't sketchy.
+      First I thought of buying a domain for a few pounds, but I scratched the idea, since I am a
+      programmer and not a believer of consumerism. <br>
+      I even thought of making a page for my site that would take an IP logger link as a parameter
+      in the url, and have my site redirect to the parameter mentioned before, but there was still the problem of the 
+      actual IP logger being in the hyperlink, but wouldn't be as revealing of the actual purpose. The problem
+      with this, would've been that I would still be relying on the person who's receiving the message, not to
+      read the full url.  Scratch that too! <br><br>
+      My final idea was to host the project on Heroku, as I even get to name the url to some extent.
+    </p>
+  </div>
+  <br>
+  <div class="container">
+    <h2>Implementation</h2>
+    <p>
+      I began to write the project and was done with it in a few hours, with multiple breaks in-between.
+      The whole idea was to take the IP of the client as soon as they connect to the heroku app. <br>
+      After receiving the IP, I made an API request to <code><a href="https://ipinfo.io/">https://ipinfo.io/</a></code> and produced a discord embed with a bunch of
+      associative arrays. <br>
+      I even took the user agent of the client, to make the project a bit more exciting. <br>
+      In the end I send the json encoded associative array to the url of my discord webhook, which
+      is specified as a environment variable in Heroku, because committing the actual url to GitHub wouldn't
+      have been the best idea. <br> 
+      At this point, I just made a quick design to make sure that the site doesn't look bad and that it wouldn't be
+      too obvious that it is for malintent. The title was inspired by my new discord bot and my friend Patrick.
+      I thought that, it will be enough to set up a normal looking site.
+      <br>
+      Last part is security. I set a cookie the first time the client visits the site and I set it to
+      expire in 5 hours. That should be long enough until people lose interest to avenge me, if they even
+      find out.
+      If I hadn't implemented this, bad actors could've made a bunch of requests to the site, which would
+      both spam my discord webhook and the API.
+    </p>
+  </div>
+  <br>
+  <div class="container">
+    <h2>PS</h2>
+    <p>
+      The design of the site from my IP logger got me thinking to start a blog, as the design
+      was really fitting. So here we are. <br>
+      Thank you for reading and happy coding :)
+    </p>
+  </div>
+</body>
+</html>
