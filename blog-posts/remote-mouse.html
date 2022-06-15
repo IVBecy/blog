@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!--Site Description-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:title" content="Remote Mouse" />
+  <meta property="og:description" content="Controlling your mouse from your phone." />
+  <meta property="og:type" content="website" />
+  <!--  Browser Icon  -->
+  <link rel="icon" href="https://kristofhracza.com/assets/images/favicon.ico">
+  <!--  React.js libraries  -->
+  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <!--  Bootstrap(s)  -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <!-- My scripts -->
+  <link rel="stylesheet" href="https://kristofhracza.com/assets/main.css">
+  <link rel="stylesheet" href="/assets/main.css">
+  <title>Remote mouse</title>
+  <style>
+    a {
+      text-decoration: underline;
+    }
+    
+    a:hover{
+      color: greenyellow;
+    }
+    span{
+      color:greenyellow;
+    }
+    #intro{
+      background-color: rgb(149, 221, 41);
+    }
+  </style>
+</head>
+<body>
+  <!-- Title -->
+  <div class="container-fluid" id="intro"><h1>Remote mouse</h1><h3>15 June</h3><p>Controlling your mouse from your phone.</p></div>
+  <!-- Description -->
+  <div class="container-fluid">
+    <a id="blog-url" href="https://github.com/IVBecy/remote-mouse">https://github.com/IVBecy/remote-mouse</a>
+  </div>
+  <br>
+  <div class="container">
+    <h2>Idea</h2>
+    <p>Have you guys ever connected your PC to a TV with an HDMI cable? <br>
+      Well, I usually do if I'd like to watch a movie or a series of videos from my bed. <br>
+      Let's assume that the videos  I watch are 10-15 minutes long and there are about 5 of them. 
+      I've got to a point where I've had enough of getting out of bed every time a video stops, to start a new one. <br>
+      I could've just made a playlist for the videos, but to  add / delete them from the playlist would be way too tedious.<br>
+      So, I decided to code something quick and easy. </p>
+  </div>
+  <br>
+  <br>
+  <div class="container">
+    <h2>Implementation</h2>
+    <p>
+      Since, I watch a lots of <a href="https://www.youtube.com/c/MichaelReeves">Michael Reeves</a> videos I thought to myself,
+      <q>Let's just set up a web server with flask, connect to it with a phone, and send coordinates when dragging fingers
+      across the screen and moving the mouse based on those coordinates.</q> <br>
+      Here's a sketch of how it is going to work:</p>
+      <div class="container-fluid"><img src="/images/remote-mouse-plan.png"></div>
+      <p>
+        Luckily for me, python had a library called <q><a href="https://pypi.org/project/mouse/">mouse</a></q> which made my job easier. <br>
+        I used XMLHttpRequests on the client side, to send data to the web server. The server would then make the mouse move to the coordinates
+        sent from the phone. <br>
+      </p>
+  </div>
+  <br>
+  <div class="container">
+    <h2>Problems with the controls</h2>
+    <p>
+      The problem was that if you moved your finger from the bottom of the screen, the mouse pointer would follow the exact
+      coordinates and go to the bottom of the screen as well. This made the controlling a bit hard, but not unusable yet irritating. (By this point
+      I've wrritten code to map the size of the phone screen to the size of the monitor).
+    </p>
+  </div>
+  <br>
+  <div class="container">
+    <h2>Improvements</h2>
+    <p>
+      The control problem was mitigated, by using <a href="https://www.computerhope.com/jargon/r/relacoor.htm">relative coordinates</a>.<br>
+      Before the fix, I kept on sending <a href="http://wiki.gis.com/wiki/index.php/Absolute_coordinates">absolute coordinates</a> to the server, as you moved your finger across the screen.
+      Meaning, that the pointer on the screen will move according to the position of your finger on the phone. <br>
+      I then realised that I needed to use relative coordinates, to simulate the movement of a mouse. <code>Last point to next point</code> as opposed to <code>move to (x,y)</code>. <br>
+      This worked by substracting the start coordinates <code>(x1,y1)</code> from the end coordinates <code>(x2,y2)</code>.<br>
+      All there was left, is to adjust the python code to move the mouse relatively.
+    </p>
+    <br>
+    <br>
+    <p>
+      I also added some control features along the way; such as scrolling up and down, left and right-click and typing. <br>
+      The only unusual feature is the typing. <br>
+      The way it works, is that I make a javascript prompt and send the text to the server. <br>
+      The python script uses the <a href="https://pypi.org/project/keyboard/">keyboard</a> and os library for this. <br>
+      It copies the text onto the clipboard, pastes it wherever you clicked or left the cursor, and presses enter. This feature was 
+      primarily made for searching on the web, hence the <code>enter</code> key.
+    </p>
+  </div>
+</body>
+</html>
